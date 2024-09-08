@@ -1,0 +1,46 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+double f(double x) {
+	double f;
+	f = double(sqrtl(1 - 0.4 * pow(x,2)) - asin(x));
+	return f;
+}
+
+int main(double a, double b, double elips, double x, int k) {
+	//setlocate(LC_ALL, "rus");
+	a = 0;
+	b = 1;
+	elips = 0.0001;
+
+	cout << "a = " << a << endl;
+	cout << "b = " << b << endl;
+	cout << "elips = " << elips << endl;
+
+	if (f(a) * f(b) < 0) {
+		cout << "Условие сходимости выполнено" << endl;
+		k = 0;
+		while (1) {
+			x = (a + b) / 2;
+			k++;
+
+			if (abs(f(x)) < elips) break;
+
+			if (f(a) * f(x) < 0) {
+				a = a;
+				b = x;
+			}
+			else {
+				a = x;
+				b = b;
+			}
+		}
+		cout << "Корень x = " << x << endl;
+		cout << "Количество итераций k = " << k << endl;
+	}
+	else {
+		cout << "Условие сходимости не выполнено" << endl;
+	}
+}
